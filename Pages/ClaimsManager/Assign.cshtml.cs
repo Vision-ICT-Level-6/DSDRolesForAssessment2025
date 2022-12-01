@@ -25,7 +25,7 @@ namespace RolesForAssessment.Pages.ClaimsManager
         [BindProperty, Required, Display(Name = "Claim Type")]
         public string ClaimType { get; set; }
         [BindProperty, Display(Name = "Claim Value")]
-        public string ClaimValue { get; set; }
+        public string? ClaimValue { get; set; }
         public async Task OnGetAsync()
         {
             await GetOptions();

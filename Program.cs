@@ -21,11 +21,14 @@ builder.Services.AddRazorPages();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminPolicy", policyBuilder => policyBuilder.RequireRole("Admin"));
+    options.AddPolicy("AdminPolicy", policyBuilder => policyBuilder.RequireClaim("Admin"));
 });
+
 //Having configured the policy named AdminPolicy, we can apply it to the AuthorizeFolder method to ensure that only members of the Admin role can access the content: 
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/RolesManager", "AdminPolicy");
+
 });
 
 
