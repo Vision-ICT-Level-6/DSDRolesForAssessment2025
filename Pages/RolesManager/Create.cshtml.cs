@@ -6,7 +6,9 @@ namespace RolesForAssessment.Pages.RolesManager
 {
     public class CreateModel : PageModel
     {
-        private readonly RoleManager<IdentityRole> _roleManager; public CreateModel(RoleManager<IdentityRole> roleManager)
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        public CreateModel(RoleManager<IdentityRole> roleManager)
         {
             _roleManager = roleManager;
         }
