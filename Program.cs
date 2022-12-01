@@ -17,6 +17,18 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
+//The AddPolicy method takes the name of the policy, and an AuthorizationPolicyBuilder which has a RequireRole method, enabling us to state which roles are required
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policyBuilder => policyBuilder.RequireRole("Admin"));
+});
+//Having configured the policy named AdminPolicy, we can apply it to the AuthorizeFolder method to ensure that only members of the Admin role can access the content: 
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/RolesManager", "AdminPolicy");
+});
+
+
 //=======NEW SECURITY============
 
 builder.Services.Configure<IdentityOptions>(options =>
