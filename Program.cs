@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+using RolesForAssessment.AuthorizationHandlers;
 using RolesForAssessment.AuthorizationRequirements;
 using RolesForAssessment.Data;
 
@@ -16,6 +18,15 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+// All 3 handlers need to the registered with the service container in program.cs: 
+builder.Services.AddSingleton<IAuthorizationHandler, IsInRoleHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, HasClaimHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, ViewRolesHandler>();
+
+
+
 builder.Services.AddRazorPages();
 
 //The AddPolicy method takes the name of the policy, and an AuthorizationPolicyBuilder which has a RequireRole method, enabling us to state which roles are required
