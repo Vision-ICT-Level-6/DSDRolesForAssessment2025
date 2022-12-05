@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+using RolesForAssessment.AuthorizationRequirements;
 using RolesForAssessment.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,24 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminPolicy", policyBuilder => policyBuilder.RequireRole("Admin"));
     options.AddPolicy("AdminPolicy", policyBuilder => policyBuilder.RequireClaim("Admin"));
+
+    //We use the RequireAssertion method, which takes an AuthorizationHandlerContext as a parameter providing access to the current user
+    options.AddPolicy("ViewRolesPolicy", policyBuilder => policyBuilder.RequireAssertion(context =>
+    {
+        // We use the FindFirst method to access a claim and obtain its value(if there is one) and convert it to a DateTime
+        var joiningDateClaim = context.User.FindFirst(c => c.Type == "Joining Date")?.Value;
+        var joiningDate = Convert.ToDateTime(joiningDateClaim);
+
+        //We use the HasClaim method to establish that a claim with the specified value exists 
+        //We compare the joining date value with DateTime.MinValue and the current date to ensure that the claim is not null, and that the date is earlier than six months ago
+        return context.User.HasClaim("Permission", "View Roles") && joiningDate > DateTime.MinValue && joiningDate < DateTime.Now.AddMonths(-6);
+
+    }));
+    options.AddPolicy("ViewRolesPolicy", policyBuilder => policyBuilder.AddRequirements(new ViewRolesRequirement(months: -6)));
 });
+
+
+
 
 //Having configured the policy named AdminPolicy, we can apply it to the AuthorizeFolder method to ensure that only members of the Admin role can access the content: 
 builder.Services.AddRazorPages(options =>
