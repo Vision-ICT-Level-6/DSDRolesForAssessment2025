@@ -23,7 +23,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 // All 3 handlers need to the registered with the service container in program.cs: 
 builder.Services.AddSingleton<IAuthorizationHandler, IsInRoleHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, HasClaimHandler>();
-builder.Services.AddSingleton<IAuthorizationHandler, ViewRolesHandler>();
+//builder.Services.AddSingleton<IAuthorizationHandler, ViewRolesHandler>();
 
 
 

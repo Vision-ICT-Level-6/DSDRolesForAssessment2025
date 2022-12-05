@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace RolesForAssessment.Pages
 {
-    // [Authorize] //add this
+     [Authorize] //add this
 
-    [Authorize(Policy = "AdminPolicy")]
+    //[Authorize(Policy = "AdminPolicy")]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
