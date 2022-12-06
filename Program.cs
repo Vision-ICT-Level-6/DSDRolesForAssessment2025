@@ -23,7 +23,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 // All 3 handlers need to the registered with the service container in program.cs: 
 builder.Services.AddSingleton<IAuthorizationHandler, IsInRoleHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, HasClaimHandler>();
-//builder.Services.AddSingleton<IAuthorizationHandler, ViewRolesHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, ViewRolesHandler>();
 
 
 
@@ -48,6 +48,9 @@ builder.Services.AddAuthorization(options =>
 
     }));
     options.AddPolicy("ViewRolesPolicy", policyBuilder => policyBuilder.AddRequirements(new ViewRolesRequirement(months: -6)));
+
+    options.AddPolicy("ViewClaimsPolicy", policyBuilder => policyBuilder.AddRequirements(new ViewClaimsRequirement(months: -6)));
+
 });
 
 
@@ -56,7 +59,8 @@ builder.Services.AddAuthorization(options =>
 //Having configured the policy named AdminPolicy, we can apply it to the AuthorizeFolder method to ensure that only members of the Admin role can access the content: 
 builder.Services.AddRazorPages(options =>
 {
-    options.Conventions.AuthorizeFolder("/RolesManager", "AdminPolicy");
+    // options.Conventions.AuthorizeFolder("/RolesManager", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/RolesManager", "ViewRolesPolicy");
 
 });
 
