@@ -29,22 +29,28 @@ builder.Services.AddSingleton<IAuthorizationHandler, ViewRolesHandler>();
 
 builder.Services.AddRazorPages();
 
-//The AddPolicy method takes the name of the policy, and an AuthorizationPolicyBuilder which has a RequireRole method, enabling us to state which roles are required
+//Authorization within a Razor Pages application is provided by a number of services, including an IAuthorizationService. These must be added to the service container at application startup. A convenience method, AddAuthorization takes care of adding all the required services: builder.Services.AddAuthorization();
+
 builder.Services.AddAuthorization(options =>
 {
+    //this is only being used when there is a page that gets locked out unless you have admin
     options.AddPolicy("AdminPolicy", policyBuilder => policyBuilder.RequireRole("Admin"));
     options.AddPolicy("AdminPolicy", policyBuilder => policyBuilder.RequireClaim("Admin"));
+
+
+
 
     //We use the RequireAssertion method, which takes an AuthorizationHandlerContext as a parameter providing access to the current user
     options.AddPolicy("ViewRolesPolicy", policyBuilder => policyBuilder.RequireAssertion(context =>
     {
+        //if they have a claim of type "Joining Date" and the value is less than 6 months ago, and they have Permission and View Roles they can view roles
         // We use the FindFirst method to access a claim and obtain its value(if there is one) and convert it to a DateTime
         var joiningDateClaim = context.User.FindFirst(c => c.Type == "Joining Date")?.Value;
         var joiningDate = Convert.ToDateTime(joiningDateClaim);
 
         //We use the HasClaim method to establish that a claim with the specified value exists 
-        //We compare the joining date value with DateTime.MinValue and the current date to ensure that the claim is not null, and that the date is earlier than six months ago
-        return context.User.HasClaim("Permission", "View Roles") && joiningDate > DateTime.MinValue && joiningDate < DateTime.Now.AddMonths(-6);
+        //We compare the joining date value with DateTime.MinValue and the current date to ensure that the claim is not null, and that the date is earlier than six months ago joiningDate > DateTime.MinValue &&
+        return context.User.HasClaim("Permission", "View Roles") && joiningDate < DateTime.Now.AddMonths(-6);
 
     }));
     options.AddPolicy("ViewRolesPolicy", policyBuilder => policyBuilder.AddRequirements(new ViewRolesRequirement(months: -6)));
@@ -54,14 +60,13 @@ builder.Services.AddAuthorization(options =>
 });
 
 
-
-
 //Having configured the policy named AdminPolicy, we can apply it to the AuthorizeFolder method to ensure that only members of the Admin role can access the content: 
 builder.Services.AddRazorPages(options =>
 {
-    // options.Conventions.AuthorizeFolder("/RolesManager", "AdminPolicy");
-    options.Conventions.AuthorizeFolder("/RolesManager", "ViewRolesPolicy");
 
+    options.Conventions.AuthorizeFolder("/RolesManager", "ViewRolesPolicy");
+    //options.Conventions.AuthorizeFolder("/ClaimsManager", "ViewClaimsPolicy");
+    // options.Conventions.AuthorizeFolder("/RolesManager", "AdminPolicy");
 });
 
 
@@ -70,12 +75,13 @@ builder.Services.AddRazorPages(options =>
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings.
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 1;
+    options.SignIn.RequireConfirmedEmail = false;
 
 
     // Lockout settings.
@@ -122,7 +128,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthorization();//Authorization middleware is enabled by default in the web application template by the inclusion of app.UseAuthorization() in the Program class.  
 
 app.MapRazorPages();
 

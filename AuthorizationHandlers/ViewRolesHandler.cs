@@ -20,10 +20,20 @@ namespace RolesForAssessment.AuthorizationHandlers
                         return Task.CompletedTask;
                     }
                     var joiningDate = Convert.ToDateTime(joiningDateClaim); //convert it to a datetime
-                    if (joiningDate < DateTime.Now.AddMonths(req.Months))//   //if the date is greater than 6 months and they have the claim to View Roles then return suceed for that reqirement  && context.User.HasClaim("Permission", "View Roles")
+
+                    if (joiningDate < DateTime.Now.AddMonths(req.Months))
                     {
-                        context.Succeed(requirement);
+                        Console.Write(" HasRolesHandler date " + joiningDate);
+                        Console.Write("HasRolesHandler Permission " + context.User.HasClaim("Permission", "View Roles"));
+                        if (context.User.HasClaim(" Permission ", " View Roles "))
+                        {
+
+                            context.Succeed(req); //they have the permissions
+                        }
+
+
                     }
+
                 }
             }
             return Task.CompletedTask;

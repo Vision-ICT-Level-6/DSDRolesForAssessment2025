@@ -14,14 +14,26 @@ namespace RolesForAssessment.AuthorizationHandlers
             {
                 return Task.CompletedTask;
             }
-            // if there is async joining date then check the date and see if it is less than 6 months and if the person has the persmission to see roles
+            // if there is a joining date then check the date and see if it is less than 6 months and if the person has the persmission to see roles
             var joiningDate = Convert.ToDateTime(joiningDateClaim);
-            //&& context.User.HasClaim("Permission", "View Roles")
+            //
 
-            if (joiningDate < DateTime.Now.AddMonths(req.Months)) //if the date is greater than 6 months and they have the claim to View Roles then return suceed for that reqirement 
+            if (joiningDate < DateTime.Now.AddMonths(req.Months))
             {
-                context.Succeed(req); //they have the permissions
+                Console.Write("HasClaimHandler date" + joiningDate);
+
+                if (context.User.HasClaim("Permission", "View Roles"))
+                {
+                    Console.Write("HasClaimHandler Permission" + context.User.HasClaim("Permission", "View Roles"));
+                    context.Succeed(req); //they have the permissions
+                }
+
+
             }
+
+
+            //if the date is greater than 6 months and they have the claim to View Roles then return suceed for that reqirement 
+
             return Task.CompletedTask;
         }
     }

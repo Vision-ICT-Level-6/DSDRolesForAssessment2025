@@ -2,7 +2,7 @@
 
 namespace RolesForAssessment.AuthorizationRequirements
 {
-
+    //IAuthorizationRequirement is a marker service with no methods, and the mechanism for tracking whether authorization is successful.
     public class ViewRolesRequirement : IAuthorizationRequirement
     {
         public int Months { get; }
