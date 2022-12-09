@@ -19,7 +19,7 @@ namespace RolesForAssessment.Pages.RolesManager
         {
             if (ModelState.IsValid)
             {
-                var role = new IdentityRole { Name = Name }; await _roleManager.CreateAsync(role);
+                var role = new IdentityRole { Name = Name.Trim() }; await _roleManager.CreateAsync(role);
                 return RedirectToPage("/RolesManager/Index");
             }
             return Page();

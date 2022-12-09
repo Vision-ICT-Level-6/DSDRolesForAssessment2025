@@ -4,6 +4,7 @@ using RolesForAssessment.AuthorizationRequirements;
 
 namespace RolesForAssessment.AuthorizationHandlers
 {
+    //Each IAuthorizationHandler is responsible for checking if requirements are met:
     public class HasClaimHandler : AuthorizationHandler<ViewRolesRequirement>
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ViewRolesRequirement req)

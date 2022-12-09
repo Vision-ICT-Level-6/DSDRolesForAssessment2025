@@ -41,7 +41,9 @@ builder.Services.AddAuthorization(options =>
 
 
     //We use the RequireAssertion method, which takes an AuthorizationHandlerContext as a parameter providing access to the current user
-    options.AddPolicy("ViewRolesPolicy", policyBuilder => policyBuilder.RequireAssertion(context =>
+
+    //all of this gets replaced by the Authorization Handlers later on in the course
+    options.AddPolicy("OLDViewRolesPolicy", policyBuilder => policyBuilder.RequireAssertion(context =>
     {
         //if they have a claim of type "Joining Date" and the value is less than 6 months ago, and they have Permission and View Roles they can view roles
         // We use the FindFirst method to access a claim and obtain its value(if there is one) and convert it to a DateTime
@@ -49,12 +51,32 @@ builder.Services.AddAuthorization(options =>
         var joiningDate = Convert.ToDateTime(joiningDateClaim);
 
         //We use the HasClaim method to establish that a claim with the specified value exists 
-        //We compare the joining date value with DateTime.MinValue and the current date to ensure that the claim is not null, and that the date is earlier than six months ago joiningDate > DateTime.MinValue &&
-        return context.User.HasClaim("Permission", "View Roles") && joiningDate < DateTime.Now.AddMonths(-6);
+        //We compare the joining date value with DateTime.MinValue and the current date to ensure that the claim is not null, and that the date is earlier than six months ago
+
+        var result = false;
+        var hasClaim = context.User.HasClaim("Permission", "View Roles");
+        var isOlderThan6Month = joiningDate > DateTime.MinValue && joiningDate < DateTime.Now.AddMonths(-6);
+
+
+        //var result = context.User.HasClaim("Permission", "View Roles") && joiningDate > DateTime.MinValue && joiningDate < DateTime.Now.AddMonths(-6);
+
+
+        if (hasClaim == true && isOlderThan6Month == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
 
     }));
-    options.AddPolicy("ViewRolesPolicy", policyBuilder => policyBuilder.AddRequirements(new ViewRolesRequirement(months: -6)));
 
+
+    options.AddPolicy("ViewRolesPolicy", policyBuilder => policyBuilder.AddRequirements(new ViewRolesRequirement(months: -6)));
+    //this replaces the one above by moving all the code out to its own classes
     options.AddPolicy("ViewClaimsPolicy", policyBuilder => policyBuilder.AddRequirements(new ViewClaimsRequirement(months: -6)));
 
 });
