@@ -4,7 +4,7 @@ using RolesForAssessment.AuthorizationRequirements;
 
 namespace RolesForAssessment.AuthorizationHandlers
 {
-
+    //this is a seperate class that inherits from AuthorizationHandler 
     public class IsInRoleHandler : AuthorizationHandler<ViewRolesRequirement>
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
