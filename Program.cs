@@ -121,12 +121,19 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 //=============END NEW SECURITY================
 
+builder.Services.AddSwaggerGen();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
 }
 else
 {
@@ -141,6 +148,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();//Authorization middleware is enabled by default in the web application template by the inclusion of app.UseAuthorization() in the Program class.  
+
+app.MapControllers();
 
 app.MapRazorPages();
 
