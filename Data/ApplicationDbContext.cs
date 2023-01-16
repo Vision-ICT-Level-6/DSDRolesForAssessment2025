@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using dsd03Razor2020Assessment.Models;
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace RolesForAssessment.Data
@@ -9,5 +11,9 @@ namespace RolesForAssessment.Data
             : base(options)
         {
         }
+
+        public DbSet<Movie> Movie { get; set; }
+        public DbSet<Cast> Cast { get; set; }
+
     }
 }
