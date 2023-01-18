@@ -23,7 +23,7 @@ namespace RolesForAssessment.AuthorizationHandlers
             {
                 Console.Write("HasClaimHandler date" + joiningDate);
 
-                if (context.User.HasClaim("Permission", "View Roles"))
+                if (context.User.HasClaim("Permission", "View Roles")) //no permission then fail
                 {
                     Console.Write("HasClaimHandler Permission" + context.User.HasClaim("Permission", "View Roles"));
                     context.Succeed(req); //they have the permissions

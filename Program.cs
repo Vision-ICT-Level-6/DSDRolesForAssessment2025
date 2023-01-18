@@ -6,7 +6,21 @@ using RolesForAssessment.AuthorizationHandlers;
 using RolesForAssessment.AuthorizationRequirements;
 using RolesForAssessment.Data;
 
+var CORSAllowSpecificOrigins = "_CORSAllowed";
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: CORSAllowSpecificOrigins,
+                         policy =>
+                         {
+                             policy.WithOrigins("http://localhost:3000", "http://www.contoso.com");
+                         });
+});
+
+
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -62,7 +76,7 @@ builder.Services.AddAuthorization(options =>
 
     }));
 
-
+    //this policy only allows people who can view roles and have been employed longer than 6 months
     options.AddPolicy("ViewRolesPolicy", policyBuilder => policyBuilder.AddRequirements(new ViewRolesRequirement(months: -6)));
 
 
@@ -75,11 +89,11 @@ builder.Services.AddAuthorization(options =>
 //Having configured the policy named AdminPolicy, we can apply it to the AuthorizeFolder method to ensure that only members of the Admin role can access the content: 
 builder.Services.AddRazorPages(options =>
 {
-
-    options.Conventions.AuthorizeFolder("/RolesManager", "ViewRolesPolicy");
-    //options.Conventions.AuthorizeFolder("/ClaimsManager", "ViewClaimsPolicy");
+    // options.Conventions.AuthorizeFolder("/ClaimsManager", "AdminPolicy");
     // options.Conventions.AuthorizeFolder("/RolesManager", "AdminPolicy");
 });
+
+//options.Conventions.AuthorizeFolder("/RolesManager", "ViewRolesPolicy");
 
 
 //=======NEW SECURITY============
@@ -146,8 +160,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+
+app.UseCors(CORSAllowSpecificOrigins);
+
 app.UseAuthentication();
-app.UseAuthorization();//Authorization middleware is enabled by default in the web application template by the inclusion of app.UseAuthorization() in the Program class.  
+app.UseAuthorization();   //Authorization middleware is enabled by default in the web application template by the inclusion of app.UseAuthorization() in the Program class.  
 
 app.MapControllers();
 
