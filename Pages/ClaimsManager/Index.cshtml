@@ -1,5 +1,5 @@
 ﻿@page
-@model RolesForAssessment.Pages.ClaimsManager.IndexModel
+@model RolesManager.IndexModel
 @{
 }
 <h4>User Claims</h4>
@@ -7,7 +7,7 @@
 
 @foreach (var user in Model.Users)
 {
-    var claims = await Model.UserManager.GetClaimsAsync(user); if (claims.Any())
+    var claims = await Model._userManager.GetClaimsAsync(user); if (claims.Any())
     {
         <h5>@user.UserName</h5>
         <table class="table-striped col-12">

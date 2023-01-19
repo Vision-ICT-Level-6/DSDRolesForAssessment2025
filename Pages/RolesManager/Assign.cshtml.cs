@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RolesForAssessment.Pages.RolesManager
 {
-    [Authorize(Roles = "Admin")]
+    //  [Authorize(Roles = "Admin")]
     public class AssignModel : PageModel
     {
         //We inject the UserManager and RoleManager services into the PageModel class 

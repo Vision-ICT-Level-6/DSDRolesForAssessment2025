@@ -32,9 +32,7 @@ namespace RolesForAssessment.AuthorizationHandlers
                             context.Succeed(req); //they have the permissions
                         }
 
-
                     }
-
                 }
             }
             return Task.CompletedTask;

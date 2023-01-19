@@ -47,8 +47,10 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddAuthorization(options =>
 {
-    //this is only being used when there is a page that gets locked out unless you have admin
-    options.AddPolicy("AdminPolicy", policyBuilder => policyBuilder.RequireRole("Admin"));
+    // options.AddPolicy("AdminPolicy", policyBuilder => policyBuilder.RequireRole("Admin"));
+
+
+
     options.AddPolicy("AdminPolicy", policyBuilder => policyBuilder.RequireClaim("Admin"));
 
 
@@ -64,19 +66,12 @@ builder.Services.AddAuthorization(options =>
         var joiningDateClaim = context.User.FindFirst(c => c.Type == "Joining Date")?.Value;
         var joiningDate = Convert.ToDateTime(joiningDateClaim);
 
-        //We use the HasClaim method to establish that a claim with the specified value exists 
-        //We compare the joining date value with DateTime.MinValue and the current date to ensure that the claim is not null, and that the date is earlier than six months ago
-
-        //var result = false;
-        //var hasClaim = context.User.HasClaim("Permission", "View Roles");
-        //var isOlderThan6Month = joiningDate > DateTime.MinValue && joiningDate < DateTime.Now.AddMonths(-6);
-
 
         return context.User.HasClaim("Permission", "View Roles") && joiningDate > DateTime.MinValue && joiningDate < DateTime.Now.AddMonths(-6);
 
     }));
 
-    //this policy only allows people who can view roles and have been employed longer than 6 months
+    //this policy only allows people who can view roles and have been employed longer than 6 months and comes from the ViewRolesRequirement Class
     options.AddPolicy("ViewRolesPolicy", policyBuilder => policyBuilder.AddRequirements(new ViewRolesRequirement(months: -6)));
 
 
@@ -86,15 +81,14 @@ builder.Services.AddAuthorization(options =>
 });
 
 
-//Having configured the policy named AdminPolicy, we can apply it to the AuthorizeFolder method to ensure that only members of the Admin role can access the content: 
+//Having configured the policy we can apply it to the AuthorizeFolder method to ensure that only members of the Admin role can access the content: 
 builder.Services.AddRazorPages(options =>
 {
-    // options.Conventions.AuthorizeFolder("/ClaimsManager", "AdminPolicy");
-    // options.Conventions.AuthorizeFolder("/RolesManager", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/RolesManager", "ViewRolesPolicy");
 });
 
-//options.Conventions.AuthorizeFolder("/RolesManager", "ViewRolesPolicy");
-
+// // options.Conventions.AuthorizeFolder("/RolesManager", "AdminPolicy");
+// options.Conventions.AuthorizeFolder("/ClaimsManager", "AdminPolicy");
 
 //=======NEW SECURITY============
 
