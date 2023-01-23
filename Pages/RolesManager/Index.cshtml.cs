@@ -24,7 +24,6 @@ namespace RolesForAssessment.Pages.RolesManager
         public List<IdentityUser> Users { get; set; }
         public List<UserRoles> UserAndRoles { get; set; }
 
-
         public List<UserRoles> GetUserAndRoles()
         {
             var list = (from user in _context.Users
@@ -34,8 +33,6 @@ namespace RolesForAssessment.Pages.RolesManager
             return list;
         }
 
-
-
         public void OnGet()
         {
             Roles = _roleManager.Roles.ToList();
@@ -44,6 +41,5 @@ namespace RolesForAssessment.Pages.RolesManager
 
         }
     }
-
 }
 

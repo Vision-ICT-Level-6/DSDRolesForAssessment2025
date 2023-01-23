@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using dsd03Razor2020Assessment.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using RolesForAssessment.Data;
-using dsd03Razor2020Assessment.Models;
 
 namespace RolesForAssessment.Controllers
 {
@@ -21,14 +18,20 @@ namespace RolesForAssessment.Controllers
             _context = context;
         }
 
+        public MoviesController()
+        {
+        }
+
+
+
         // GET: api/Movies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovie()
         {
-          if (_context.Movie == null)
-          {
-              return NotFound();
-          }
+            if (_context.Movie == null)
+            {
+                return NotFound();
+            }
             return await _context.Movie.ToListAsync();
         }
 
@@ -36,10 +39,10 @@ namespace RolesForAssessment.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> GetMovie(Guid id)
         {
-          if (_context.Movie == null)
-          {
-              return NotFound();
-          }
+            if (_context.Movie == null)
+            {
+                return NotFound();
+            }
             var movie = await _context.Movie.FindAsync(id);
 
             if (movie == null)
@@ -86,10 +89,10 @@ namespace RolesForAssessment.Controllers
         [HttpPost]
         public async Task<ActionResult<Movie>> PostMovie(Movie movie)
         {
-          if (_context.Movie == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Movie'  is null.");
-          }
+            if (_context.Movie == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Movie'  is null.");
+            }
             _context.Movie.Add(movie);
             await _context.SaveChangesAsync();
 
