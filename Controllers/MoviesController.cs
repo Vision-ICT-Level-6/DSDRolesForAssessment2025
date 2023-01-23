@@ -18,9 +18,6 @@ namespace RolesForAssessment.Controllers
             _context = context;
         }
 
-        public MoviesController()
-        {
-        }
 
 
 
