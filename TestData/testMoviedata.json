@@ -1,34 +1,34 @@
 [
   {
-    "Id": "b3721c65-7d23-4302-53f4-08daf769a5fb",
-    "Title": "AVATAR: THE WAY OF WATER",
-    "ReleaseDate": "2023-01-16T00:00:00",
-    "Overview": "Set more than a decade after the events of the first film, \"Avatar: The Way of Water\" begins to tell the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
-    "Genre": "Sci-Fi, Adventure, Action, Fantasy",
-    "Price": 123
+    "id": "b3721c65-7d23-4302-53f4-08daf769a5fb",
+    "title": "AVATAR: THE WAY OF WATER",
+    "releaseDate": "2023-01-16T00:00:00",
+    "overview": "Set more than a decade after the events of the first film, \"Avatar: The Way of Water\" begins to tell the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+    "genre": "Sci-Fi, Adventure, Action, Fantasy",
+    "price": 123
   },
   {
-    "Id": "256c547b-b008-4f9b-0721-08daf76a9411",
-    "Title": "A MAN CALLED OTTO",
-    "ReleaseDate": "2023-01-16T00:00:00",
-    "Overview": "Based on the comical and moving New York Times bestseller, A Man Called Otto tells the story of Otto Anderson (Tom Hanks), a grumpy widower whose only joy comes from criticizing and judging his exasperated neighbors. When a lively young family moves in next door, he meets his match in quick-witted and very pregnant Marisol, leading to an unexpected friendship that will turn his world upside-down.",
-    "Genre": "Comedy, Drama",
-    "Price": 123
+    "id": "256c547b-b008-4f9b-0721-08daf76a9411",
+    "title": "A MAN CALLED OTTO",
+    "releaseDate": "2023-01-16T00:00:00",
+    "overview": "Based on the comical and moving New York Times bestseller, A Man Called Otto tells the story of Otto Anderson (Tom Hanks), a grumpy widower whose only joy comes from criticizing and judging his exasperated neighbors. When a lively young family moves in next door, he meets his match in quick-witted and very pregnant Marisol, leading to an unexpected friendship that will turn his world upside-down.",
+    "genre": "Comedy, Drama",
+    "price": 123
   },
   {
-    "Id": "1cc9d4c0-332d-4317-0722-08daf76a9411",
-    "Title": "THE BANSHEES OF INISHERIN",
-    "ReleaseDate": "2023-01-16T00:00:00",
-    "Overview": "Set on a remote island off the west coast of Ireland, THE BANSHEES OF INISHERIN follows lifelong friends P�draic and Colm, who find themselves at an impasse when Colm unexpectedly puts an end to their friendship. A stunned P�draic, aided by his sister Siobh�n and troubled young islander Dominic, endeavours to repair the relationship, refusing to take no for an answer. But P�draic's repeated efforts only strengthen his former friend�s resolve and when Colm delivers a desperate ultimatum, events swiftly escalate, with shocking consequences.",
-    "Genre": "Comedy",
-    "Price": 123
+    "id": "1cc9d4c0-332d-4317-0722-08daf76a9411",
+    "title": "THE BANSHEES OF INISHERIN",
+    "releaseDate": "2023-01-16T00:00:00",
+    "overview": "Set on a remote island off the west coast of Ireland, THE BANSHEES OF INISHERIN follows lifelong friends P�draic and Colm, who find themselves at an impasse when Colm unexpectedly puts an end to their friendship. A stunned P�draic, aided by his sister Siobh�n and troubled young islander Dominic, endeavours to repair the relationship, refusing to take no for an answer. But P�draic's repeated efforts only strengthen his former friend�s resolve and when Colm delivers a desperate ultimatum, events swiftly escalate, with shocking consequences.",
+    "genre": "Comedy",
+    "price": 123
   },
   {
-    "Id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "Title": "string",
-    "ReleaseDate": "2023-01-16T00:00:00",
-    "Overview": "string",
-    "Genre": "string",
-    "Price": 0
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "title": "string",
+    "releaseDate": "2023-01-16T00:00:00",
+    "overview": "string",
+    "genre": "string",
+    "price": 0
   }
 ]

@@ -11,10 +11,12 @@ namespace RolesForAssessment.TestData
     {
 
         //import json array and add to context
+
         public static void AddMovieData(ApplicationDbContext context)
         {
-            var jsonString = File.ReadAllText("testMoviedata.json");
+            var jsonString = File.ReadAllText("Testdata/testMovieData.json");
 
+            //need to stop it being case sensitive the model is capital case and the json is not
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -26,21 +28,21 @@ namespace RolesForAssessment.TestData
                 {
                     context.Movie.Add(item);
                 }
-                //  context.SaveChanges();
+                // context.SaveChanges();
             }
 
         }
 
         public static void AddCastData(ApplicationDbContext context)
         {
-            var jsonString = File.ReadAllText("testCastdata.json");
+            var jsonString = File.ReadAllText("Testdata/testCastData.json");
 
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
 
-            var list = JsonSerializer.Deserialize<List<Cast>>(jsonString, options);
+            var list = JsonSerializer.Deserialize<Cast[]>(jsonString, options);
             {
                 foreach (var item in list)
                 {
@@ -50,7 +52,6 @@ namespace RolesForAssessment.TestData
             }
 
         }
-
 
     }
 }

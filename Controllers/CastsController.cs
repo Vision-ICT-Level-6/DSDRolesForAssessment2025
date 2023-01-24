@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using dsd03Razor2020Assessment.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using RolesForAssessment.Data;
-using dsd03Razor2020Assessment.Models;
 
 namespace RolesForAssessment.Controllers
 {
@@ -25,10 +22,12 @@ namespace RolesForAssessment.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cast>>> GetCast()
         {
-          if (_context.Cast == null)
-          {
-              return NotFound();
-          }
+            if (_context.Cast == null)
+            {
+                return NotFound();
+            }
+
+            // AddTestData.AddCastData(_context);
             return await _context.Cast.ToListAsync();
         }
 
@@ -36,10 +35,10 @@ namespace RolesForAssessment.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Cast>> GetCast(Guid id)
         {
-          if (_context.Cast == null)
-          {
-              return NotFound();
-          }
+            if (_context.Cast == null)
+            {
+                return NotFound();
+            }
             var cast = await _context.Cast.FindAsync(id);
 
             if (cast == null)
@@ -86,10 +85,10 @@ namespace RolesForAssessment.Controllers
         [HttpPost]
         public async Task<ActionResult<Cast>> PostCast(Cast cast)
         {
-          if (_context.Cast == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Cast'  is null.");
-          }
+            if (_context.Cast == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Cast'  is null.");
+            }
             _context.Cast.Add(cast);
             await _context.SaveChangesAsync();
 

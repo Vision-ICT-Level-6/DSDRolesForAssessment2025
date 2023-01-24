@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 using RolesForAssessment.Data;
 //https://code-maze.com/aspnet-core-integration-testing/
-namespace RolesForAssessment
+namespace RolesForAssessment.TestData
 {
     //The WebApplicationFactory class is a factory that we can use to bootstrap an application in memory for functional end-to-end tests. 
     public class TestingWebAppFactory<TEntryPoint> : WebApplicationFactory<Program> where TEntryPoint : Program

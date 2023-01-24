@@ -170,7 +170,7 @@ app.MapControllers();
 
 app.MapRazorPages();
 
-//app.MigrateDatabase();
+
 
 app.Run();
 
