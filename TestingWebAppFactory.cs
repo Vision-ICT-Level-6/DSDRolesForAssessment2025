@@ -2,9 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 
 using RolesForAssessment.Data;
-
+//https://code-maze.com/aspnet-core-integration-testing/
 namespace RolesForAssessment
 {
+    //The WebApplicationFactory class is a factory that we can use to bootstrap an application in memory for functional end-to-end tests. 
     public class TestingWebAppFactory<TEntryPoint> : WebApplicationFactory<Program> where TEntryPoint : Program
     {
 
@@ -34,6 +35,8 @@ namespace RolesForAssessment
                     try
                     {
                         appContext.Database.EnsureCreated();
+
+                        //context.Database.EnsureCreated() ensures that the database for the context exists. If it exists, no action is taken. If it does not exist then the database and all its schema are created and also it ensures it is compatible with the model for this context.
                     }
                     catch (Exception ex)
                     {

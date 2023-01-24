@@ -29,6 +29,8 @@ namespace RolesForAssessment.Controllers
             {
                 return NotFound();
             }
+
+            //  AddTestData.AddMovieData(_context);
             return await _context.Movie.ToListAsync();
         }
 

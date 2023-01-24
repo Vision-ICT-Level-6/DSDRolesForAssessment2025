@@ -12,6 +12,16 @@ namespace RolesForAssessment.Data
         {
         }
 
+        //load this to get passed the "The entity type 'IdentityUserLogin<string>' requires a primary key to be defined." error
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            base.OnModelCreating(modelBuilder);
+
+
+        }
+
+
         public DbSet<Movie> Movie { get; set; }
         public DbSet<Cast> Cast { get; set; }
 
