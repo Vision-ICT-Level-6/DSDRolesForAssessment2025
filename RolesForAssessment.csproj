@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="TestData\testCastdata.json" />
+    <Content Remove="TestDataDummy\testCastdata.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="TestData\testCastData.json" />
+    <None Include="TestDataDummy\testCastData.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="TestData\testMovieData.json">
+    <Content Update="TestDataDummy\testMovieData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
