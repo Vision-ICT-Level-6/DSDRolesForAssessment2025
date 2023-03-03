@@ -1,9 +1,10 @@
 ﻿@page
-@model RolesManager.IndexModel
+@model ClaimsManager.IndexModel
 @{
 }
 <h4>User Claims</h4>
-<a class="btn btn-success" asp-page="/ClaimsManager/Assign">New</a> 
+<a class="btn btn-success" asp-page="/ClaimsManager/Assign">Create a New Claim</a> 
+<hr />
 
 @foreach (var user in Model.Users)
 {
