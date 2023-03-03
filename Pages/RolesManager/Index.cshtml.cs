@@ -15,10 +15,11 @@ namespace RolesForAssessment.Pages.RolesManager {
             _roleManager = roleManager;
             _context = context;
         }
-        //declare a public List<IdentityRole> property and use the RoleManager service to populate it with all our existing roles. 
+        //create a list of all the Roles
         public List<IdentityRole> Roles { get; set; }
+        //create a list of all the Current Users and Roles
         public List<UserRoles> UserAndRoles { get; set; }
-
+        //create the Users and Roles from the DB
         public List<UserRoles> GetUserAndRoles() {
             var list = (from user in _context.Users
                         join userRoles in _context.UserRoles on user.Id equals userRoles.UserId
@@ -28,7 +29,9 @@ namespace RolesForAssessment.Pages.RolesManager {
         }
 
         public void OnGet() {
+            //pass the Roles to the front end
             Roles = _roleManager.Roles.ToList();
+            //Pass the users and roles to the front end
             UserAndRoles = GetUserAndRoles();
 
         }
